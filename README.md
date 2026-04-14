@@ -201,7 +201,7 @@ This is a demo project for business development purposes.
 
 ## 📧 Contact
 
-For partnership inquiries: **[your-email@example.com]**
+For partnership inquiries: **farid.gahramanov78@gmail.com**
 
 ---
 
