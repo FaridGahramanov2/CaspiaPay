@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -14,13 +15,18 @@ const PAGE_META = {
 export default function Layout({ children }) {
   const { pathname } = useLocation()
   const meta = PAGE_META[pathname] || { title: 'CaspiaPay', subtitle: '' }
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-navy-900">
-      <Sidebar />
-      <div className="flex-1 ml-64 flex flex-col min-h-screen">
-        <Header title={meta.title} subtitle={meta.subtitle} />
-        <main className="flex-1 p-6 page-enter">{children}</main>
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
+        <Header
+          title={meta.title}
+          subtitle={meta.subtitle}
+          onMenuClick={() => setSidebarOpen(true)}
+        />
+        <main className="flex-1 p-4 sm:p-6 page-enter">{children}</main>
       </div>
     </div>
   )

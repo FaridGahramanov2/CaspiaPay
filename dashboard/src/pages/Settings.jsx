@@ -18,7 +18,7 @@ export default function Settings() {
   return (
     <div>
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-white dark:bg-navy-800 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 shadow-2xl">
+        <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 left-4 sm:left-auto z-50 flex items-center gap-3 bg-white dark:bg-navy-800 border border-gray-200 dark:border-white/10 rounded-xl px-4 py-3 shadow-2xl">
           <CheckCircle className="w-4 h-4 text-sage dark:text-teal-400" />
           <span className="text-sm text-gray-900 dark:text-white">{toast}</span>
         </div>
@@ -37,7 +37,7 @@ export default function Settings() {
                 className="w-full px-3 py-2 bg-gray-50 dark:bg-navy-900 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-sage"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
                 <input
@@ -68,7 +68,7 @@ export default function Settings() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Live Key</label>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <div className="flex-1 relative">
                   <input
                     type={showLiveKey ? 'text' : 'password'}
@@ -94,7 +94,7 @@ export default function Settings() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Test Key</label>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <div className="flex-1 relative">
                   <input
                     type={showTestKey ? 'text' : 'password'}

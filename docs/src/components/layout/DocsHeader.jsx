@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Search, Moon, Sun } from 'lucide-react';
+import { Search, Moon, Sun, Menu } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-export default function DocsHeader() {
+export default function DocsHeader({ onMenuClick }) {
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('caspiapay_docs_theme');
     return saved ? saved === 'dark' : true; // default to dark
@@ -23,7 +23,16 @@ export default function DocsHeader() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        {/* Mobile menu button */}
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors mr-2"
+          aria-label="Open menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
             <span className="text-white font-bold text-sm">AZ</span>
@@ -46,9 +55,9 @@ export default function DocsHeader() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
-            className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+            className="hidden sm:block p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
             aria-label="Search"
           >
             <Search className="w-5 h-5" />
@@ -62,7 +71,7 @@ export default function DocsHeader() {
           </button>
           <a
             href="#"
-            className="ml-2 px-4 py-2 bg-teal-500 text-white text-sm font-medium rounded-lg hover:bg-teal-600 transition-colors"
+            className="hidden sm:inline-block ml-2 px-4 py-2 bg-teal-500 text-white text-sm font-medium rounded-lg hover:bg-teal-600 transition-colors"
           >
             Get Started
           </a>

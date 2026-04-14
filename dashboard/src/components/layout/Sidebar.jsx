@@ -19,7 +19,7 @@ const NAV = [
   { to: '/settings', icon: Settings, label: 'Settings' },
 ]
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
@@ -28,13 +28,31 @@ export default function Sidebar() {
     navigate('/')
   }
 
+  function handleNavClick() {
+    // Close mobile menu when navigating
+    if (onClose) onClose()
+  }
+
   return (
-    <aside className="w-64 min-h-screen bg-white dark:bg-navy-900 border-r border-gray-200 dark:border-white/5 flex flex-col fixed left-0 top-0 z-30">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`w-64 min-h-screen bg-white dark:bg-navy-900 border-r border-gray-200 dark:border-white/5 flex flex-col fixed left-0 top-0 z-50 transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}>
       {/* Logo */}
       <div className="p-5 border-b border-gray-200 dark:border-white/5">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-sage flex items-center justify-center text-white font-bold text-base flex-shrink-0">
-            A
+            CP
           </div>
           <div>
             <span className="text-gray-900 dark:text-white font-semibold text-base tracking-tight">CaspiaPay</span>
@@ -51,6 +69,7 @@ export default function Sidebar() {
             <Link
               key={to}
               to={to}
+              onClick={handleNavClick}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${
                 active
                   ? 'bg-sage/10 text-sage dark:bg-teal/10 dark:text-teal'
@@ -72,7 +91,7 @@ export default function Sidebar() {
             FG
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-medium text-gray-900 dark:text-white truncate">Farid Gahramanov</div>
+            <div className="text-sm font-medium text-gray-900 dark:text-white truncate">Admin</div>
             <div className="text-xs text-gray-500 dark:text-slate-500">Administrator</div>
           </div>
           <button
@@ -85,5 +104,6 @@ export default function Sidebar() {
         </div>
       </div>
     </aside>
+    </>
   )
 }

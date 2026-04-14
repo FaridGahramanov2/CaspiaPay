@@ -100,7 +100,7 @@ export default function Transactions() {
       {/* Table Card */}
       <div className="bg-white dark:bg-navy-800 border border-gray-200 dark:border-white/5 rounded-xl overflow-hidden shadow-sm">
         {/* Filters */}
-        <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex flex-wrap items-center gap-3">
+        <div className="px-4 sm:px-5 py-4 border-b border-gray-200 dark:border-white/5 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 bg-gray-100 dark:bg-navy-900 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 flex-1 min-w-[180px] max-w-xs">
             <Search size={14} className="text-gray-500 dark:text-slate-500 flex-shrink-0" />
             <input
@@ -133,19 +133,58 @@ export default function Transactions() {
           </select>
 
           <div className="ml-auto flex items-center gap-2">
-            <span className="text-gray-500 dark:text-slate-500 text-xs">{filtered.length} results</span>
+            <span className="hidden sm:inline text-gray-500 dark:text-slate-500 text-xs">{filtered.length} results</span>
             <button
               onClick={handleExport}
               className="flex items-center gap-1.5 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 rounded-xl px-3 py-2 text-sm text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition"
             >
               <Download size={14} />
-              Export CSV
+              <span className="hidden sm:inline">Export CSV</span>
             </button>
           </div>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
+        {/* Mobile Card View */}
+        <div className="lg:hidden divide-y divide-gray-200 dark:divide-white/5">
+          {paginated.map(tx => (
+            <div
+              key={tx.id}
+              onClick={() => setSelectedTx(tx)}
+              className="p-4 hover:bg-gray-50 dark:hover:bg-white/[0.02] cursor-pointer transition-colors"
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex-1 min-w-0">
+                  <div className="text-gray-900 dark:text-white text-sm font-medium truncate">{tx.merchant?.name}</div>
+                  <div className="text-gray-600 dark:text-slate-400 text-xs mt-0.5 truncate">{tx.description}</div>
+                  <div className="font-mono text-xs text-gray-500 dark:text-slate-400 mt-1">{tx.id.slice(0, 14)}…</div>
+                </div>
+                <div className="ml-3">
+                  <Badge status={tx.status} />
+                </div>
+              </div>
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 dark:border-white/5">
+                <div>
+                  <div className={`text-sm font-semibold ${tx.status === 'failed' ? 'text-gray-400 dark:text-slate-500' : 'text-gray-900 dark:text-white'}`}>
+                    {formatCurrency(tx.amount)}
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <CardBrandIcon brand={tx.card?.brand} />
+                    <span className="text-gray-500 dark:text-slate-500 text-xs">•••• {tx.card?.last4}</span>
+                  </div>
+                </div>
+                <div className="text-right text-gray-500 dark:text-slate-500 text-xs">
+                  {formatDate(tx.createdAt, { time: true })}
+                </div>
+              </div>
+            </div>
+          ))}
+          {paginated.length === 0 && (
+            <div className="px-4 py-12 text-center text-gray-400 dark:text-slate-600">No transactions found</div>
+          )}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden lg:block overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-200 dark:border-white/5">
@@ -202,7 +241,7 @@ export default function Transactions() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="px-5 py-3 border-t border-gray-200 dark:border-white/5 flex items-center justify-between">
+          <div className="px-4 sm:px-5 py-3 border-t border-gray-200 dark:border-white/5 flex items-center justify-between">
             <span className="text-xs text-gray-500 dark:text-slate-500">
               Page {page} of {totalPages} · {filtered.length} transactions
             </span>

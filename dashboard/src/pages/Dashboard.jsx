@@ -123,14 +123,49 @@ export default function Dashboard() {
 
       {/* Recent Transactions */}
       <div className="bg-white dark:bg-navy-800 border border-gray-200 dark:border-white/5 rounded-xl overflow-hidden shadow-sm">
-        <div className="px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center justify-between">
+        <div className="px-4 sm:px-5 py-4 border-b border-gray-200 dark:border-white/5 flex items-center justify-between">
           <div>
             <h2 className="text-gray-900 dark:text-white font-semibold text-sm">Recent Transactions</h2>
             <p className="text-gray-500 dark:text-slate-500 text-xs mt-0.5">Last 10 transactions</p>
           </div>
           <a href="/transactions" className="text-sage dark:text-teal text-xs hover:underline">View all →</a>
         </div>
-        <div className="overflow-x-auto">
+
+        {/* Mobile Card View */}
+        <div className="lg:hidden divide-y divide-gray-200 dark:divide-white/5">
+          {recentTxns.map(tx => (
+            <div
+              key={tx.id}
+              onClick={() => setSelectedTx(tx)}
+              className="p-4 hover:bg-gray-50 dark:hover:bg-white/[0.02] cursor-pointer transition-colors"
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex-1 min-w-0">
+                  <div className="text-gray-900 dark:text-white text-sm font-medium truncate">{tx.merchant?.name}</div>
+                  <div className="font-mono text-xs text-gray-500 dark:text-slate-400 mt-0.5">{tx.id.slice(0, 14)}…</div>
+                </div>
+                <div className="ml-3">
+                  <Badge status={tx.status} />
+                </div>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <div className="flex items-center gap-1.5">
+                  <CardBrandIcon brand={tx.card?.brand} />
+                  <span className="text-gray-500 dark:text-slate-500 text-xs">•••• {tx.card?.last4}</span>
+                </div>
+                <div className="text-right">
+                  <div className={`text-sm font-semibold ${tx.status === 'failed' ? 'text-gray-400 dark:text-slate-500' : 'text-gray-900 dark:text-white'}`}>
+                    {formatCurrency(tx.amount)}
+                  </div>
+                  <div className="text-gray-500 dark:text-slate-500 text-xs mt-0.5">{formatTimeAgo(tx.createdAt)}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden lg:block overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-200 dark:border-white/5">

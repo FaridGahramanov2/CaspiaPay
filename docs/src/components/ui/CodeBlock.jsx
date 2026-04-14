@@ -22,14 +22,14 @@ export default function CodeBlock({ code, language = 'javascript', tabs = null }
     : language;
 
   return (
-    <div className="my-4 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800">
+    <div className="my-4 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 overflow-x-auto">
       {tabs && (
-        <div className="flex items-center gap-1 bg-gray-900 border-b border-gray-800 px-2 pt-2">
+        <div className="flex items-center gap-1 bg-gray-900 border-b border-gray-800 px-2 pt-2 overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab.label}
               onClick={() => setActiveTab(tab.label)}
-              className={`px-3 py-1.5 text-sm font-medium rounded-t-lg transition-colors ${
+              className={`px-2 sm:px-3 py-1.5 text-xs sm:text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap ${
                 activeTab === tab.label
                   ? 'bg-gray-800 text-white'
                   : 'text-gray-400 hover:text-gray-300'
@@ -40,7 +40,7 @@ export default function CodeBlock({ code, language = 'javascript', tabs = null }
           ))}
         </div>
       )}
-      <div className="relative bg-gray-900">
+      <div className="relative bg-gray-900 overflow-x-auto">
         <button
           onClick={() => copyToClipboard(currentCode)}
           className="absolute top-2 right-2 p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-gray-300"
@@ -53,13 +53,15 @@ export default function CodeBlock({ code, language = 'javascript', tabs = null }
           style={oneDark}
           customStyle={{
             margin: 0,
-            padding: '1rem',
+            padding: '0.75rem',
             background: '#111827',
-            fontSize: '0.875rem',
+            fontSize: '0.8125rem',
+            overflowX: 'auto',
           }}
           codeTagProps={{
             style: {
               fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '0.8125rem',
             }
           }}
         >

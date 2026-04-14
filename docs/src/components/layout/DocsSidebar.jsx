@@ -20,13 +20,30 @@ const navItems = [
   { path: '/security', label: 'Security', icon: Shield },
 ];
 
-export default function DocsSidebar() {
+export default function DocsSidebar({ isOpen, onClose }) {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
 
+  const handleNavClick = () => {
+    if (onClose) onClose();
+  };
+
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-800 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`w-64 bg-white border-r border-gray-200 dark:bg-gray-900 dark:border-gray-800 h-[calc(100vh-4rem)] sticky top-16 overflow-y-auto fixed lg:sticky z-50 lg:z-auto transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}>
       <nav className="p-6 space-y-1">
         {navItems.map((item, i) => {
           if (item.items) {
@@ -40,6 +57,7 @@ export default function DocsSidebar() {
                       <Link
                         key={subItem.path}
                         to={subItem.path}
+                        onClick={handleNavClick}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                           isActive(subItem.path)
                             ? 'bg-teal-50 text-teal-600 font-medium dark:bg-teal-900/20 dark:text-teal-400'
@@ -61,6 +79,7 @@ export default function DocsSidebar() {
             <Link
               key={item.path}
               to={item.path}
+              onClick={handleNavClick}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                 isActive(item.path)
                   ? 'bg-teal-50 text-teal-600 font-medium dark:bg-teal-900/20 dark:text-teal-400'
@@ -74,5 +93,6 @@ export default function DocsSidebar() {
         })}
       </nav>
     </aside>
+    </>
   );
 }
