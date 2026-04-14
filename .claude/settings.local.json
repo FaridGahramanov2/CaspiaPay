@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/faridgahramanov/.nvm/versions/node/**)",
+      "Bash(command -v nvm)",
+      "Bash(brew list:*)",
+      "Bash(source:*)",
+      "Bash(nvm use:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}
