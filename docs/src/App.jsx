@@ -12,6 +12,7 @@ import Connect from './pages/Connect';
 import Testing from './pages/Testing';
 import SDKs from './pages/SDKs';
 import Security from './pages/Security';
+import InvestorSandbox from './pages/InvestorSandbox';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<DocsLayout />}>
+          <Route path="/investor-sandbox" element={<InvestorSandbox />} />
           <Route path="/quickstart" element={<Quickstart />} />
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/charges" element={<Charges />} />

@@ -7,6 +7,7 @@ import Merchants from './pages/Merchants'
 import Payouts from './pages/Payouts'
 import Analytics from './pages/Analytics'
 import Settings from './pages/Settings'
+import InvestorDemo from './pages/InvestorDemo'
 import { ToastProvider } from './components/ui/Toast'
 
 function RequireAuth({ children }) {
@@ -44,6 +45,7 @@ export default function App() {
           path="/settings"
           element={<RequireAuth><Layout><Settings /></Layout></RequireAuth>}
         />
+        <Route path="/investor-demo" element={<RequireAuth><Layout><InvestorDemo /></Layout></RequireAuth>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ToastProvider>
