@@ -31,7 +31,7 @@ export default function Header({ title, subtitle, onMenuClick }) {
         {/* Date badge */}
         <div className="hidden sm:flex items-center gap-2 text-xs text-gray-500 dark:text-slate-500 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg px-3 py-2">
           <span className="w-1.5 h-1.5 bg-sage rounded-full"></span>
-          <span>Apr 13, 2026</span>
+          <span>Demo workspace</span>
         </div>
         {/* Notification bell */}
         <div className="relative">

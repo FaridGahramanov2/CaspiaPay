@@ -12,6 +12,7 @@ export default function DocsLayout() {
       <div className="flex">
         <DocsSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
+          <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">Product prototype. Banking connections, certifications and production APIs are not established. See Investor sandbox for implemented local endpoints.</div>
           <Outlet />
         </main>
       </div>

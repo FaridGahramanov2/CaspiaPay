@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 
 const NAV = [
+  { to: '/investor-demo', icon: ArrowLeftRight, label: 'Investor sandbox' },
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/transactions', icon: ArrowLeftRight, label: 'Transactions' },
   { to: '/merchants', icon: Store, label: 'Merchants' },

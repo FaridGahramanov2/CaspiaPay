@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { FileText, Key, CreditCard, Users, DollarSign, Building2, Webhook, Share2, TestTube, Code, Shield } from 'lucide-react';
 
 const navItems = [
+  { path: '/investor-sandbox', label: 'Investor sandbox', icon: TestTube },
   { path: '/quickstart', label: 'Quickstart', icon: FileText },
   { path: '/authentication', label: 'Authentication', icon: Key },
   {
